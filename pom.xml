@@ -21,6 +21,7 @@
 	<modules>
 		<module>hello-app</module>
 		<module>hello-service</module>
+		<module>hello-starter</module>
 	</modules>
 
 	<dependencyManagement>
@@ -28,6 +29,11 @@
 			<dependency>
 				<groupId>com.example</groupId>
 				<artifactId>hello-service</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>hello-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
