@@ -23,11 +23,12 @@ public class HelloAutoConfigurationTest {
 
 	@Test
 	public void defaultServiceIsAutoConfigured() {
-		this.contextRunner.run((context) -> {
+		this.contextRunner
+				.withPropertyValues("hello.prefix=Test", "hello.suffix=**").run((context) -> {
 			assertThat(context).hasSingleBean(HelloService.class);
 			HelloService bean = context.getBean(HelloService.class);
 			bean.sayHello("World");
-			assertThat(this.output.toString()).contains("Hello World!");
+			assertThat(this.output.toString()).contains("Test World**");
 		});
 	}
 
