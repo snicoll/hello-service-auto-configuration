@@ -37,10 +37,10 @@ public class HelloAutoConfigurationTest {
 
 	@Test
 	public void defaultServiceIsAutoConfigured() {
-		load(EmptyConfiguration.class);
+		load(EmptyConfiguration.class, "hello.prefix=Test", "hello.suffix=**");
 		HelloService bean = this.context.getBean(HelloService.class);
 		bean.sayHello("World");
-		this.output.expect(containsString("Hello World!"));
+		this.output.expect(containsString("Test World**"));
 	}
 
 	@Test
