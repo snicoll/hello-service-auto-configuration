@@ -1,5 +1,6 @@
 package hello.autoconfigure;
 
+import hello.HelloService;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,6 +13,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import static org.hamcrest.CoreMatchers.containsString;
 
 public class HelloAutoConfigurationTest {
 
@@ -32,7 +35,10 @@ public class HelloAutoConfigurationTest {
 
 	@Test
 	public void defaultServiceIsAutoConfigured() {
-
+		load(EmptyConfiguration.class);
+		HelloService bean = this.context.getBean(HelloService.class);
+		bean.sayHello("World");
+		this.output.expect(containsString("Hello World!"));
 	}
 
 	private void load(Class<?> config, String... environment) {
