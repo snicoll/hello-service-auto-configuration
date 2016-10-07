@@ -5,8 +5,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("hello")
 public class HelloProperties {
 
+	/**
+	 * Prefix of the welcome message. A space is added before the prefix and
+	 * the actual message.
+	 */
 	private String prefix = "Hello";
 
+	/**
+	 * Suffix of the welcome message.
+	 */
 	private String suffix = "!";
 
 	public String getPrefix() {
