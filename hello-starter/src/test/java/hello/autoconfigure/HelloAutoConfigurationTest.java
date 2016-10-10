@@ -5,6 +5,7 @@ import hello.HelloService;
 import org.junit.Rule;
 import org.junit.Test;
 
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.rule.OutputCapture;
@@ -50,8 +51,13 @@ public class HelloAutoConfigurationTest {
 
 	@Test
 	public void defaultServiceIsNotAutoConfiguredWithWrongPrefix() {
-		this.contextRunner.withPropertyValues("hello.prefix=test").run((context) ->
-				assertThat(context).doesNotHaveBean(HelloService.class));
+		this.contextRunner.withPropertyValues("hello.prefix=test").run((context) -> {
+			assertThat(context).hasFailed();
+			assertThat(context.getStartupFailure())
+					.isInstanceOf(BeanCreationException.class);
+			assertThat(context.getStartupFailure())
+					.hasMessageContaining("Invalid prefix 'test'");
+		});
 	}
 
 	@Configuration

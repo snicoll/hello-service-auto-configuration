@@ -9,6 +9,9 @@ public class ConsoleHelloService implements HelloService {
 	public ConsoleHelloService(String prefix, String suffix) {
 		this.prefix = (prefix != null ? prefix : "Hello");
 		this.suffix = (suffix != null ? suffix : "!");
+		if (!Character.isUpperCase(this.prefix.charAt(0))) {
+			throw new InvalidHelloPrefixException(this.prefix);
+		}
 	}
 
 	public ConsoleHelloService() {
