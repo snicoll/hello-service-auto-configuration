@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.boot.test.util.EnvironmentTestUtils;
@@ -60,8 +61,9 @@ public class HelloAutoConfigurationTest {
 
 	@Test
 	public void defaultServiceIsNotAutoConfiguredWithWrongPrefix() {
+		this.thrown.expect(BeanCreationException.class);
+		this.thrown.expectMessage("Invalid prefix 'test'");
 		load(EmptyConfiguration.class, "hello.prefix=test");
-		assertThat(this.context.getBeansOfType(HelloService.class)).isEmpty();
 	}
 
 	private void load(Class<?> config, String... environment) {
