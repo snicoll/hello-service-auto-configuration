@@ -7,7 +7,7 @@ import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-public class OnValidHelloPrefixCondition extends SpringBootCondition {
+class OnValidHelloPrefixCondition extends SpringBootCondition {
 
 	@Override
 	public ConditionOutcome getMatchOutcome(ConditionContext context,
@@ -15,7 +15,7 @@ public class OnValidHelloPrefixCondition extends SpringBootCondition {
 		RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(
 				context.getEnvironment(), "hello.");
 		ConditionMessage.Builder condition =
-				ConditionMessage.forCondition("ValidHelloPrefix");
+				ConditionMessage.forCondition(ConditionalOnValidHelloPrefix.class);
 		if (resolver.containsProperty("prefix")) {
 			String value = resolver.getProperty("prefix");
 			if (Character.isUpperCase(value.charAt(0))) {

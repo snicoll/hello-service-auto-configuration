@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -23,7 +22,7 @@ public class HelloAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@Conditional(OnValidHelloPrefixCondition.class)
+	@ConditionalOnValidHelloPrefix
 	public HelloService helloService() {
 		return new ConsoleHelloService(this.properties.getPrefix(),
 				this.properties.getSuffix());
