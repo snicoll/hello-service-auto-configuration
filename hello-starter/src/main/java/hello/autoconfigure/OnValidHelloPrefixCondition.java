@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-public class OnValidHelloPrefixCondition extends SpringBootCondition {
+class OnValidHelloPrefixCondition extends SpringBootCondition {
 
 	private static final String PROPERTY_NAME = "hello.prefix";
 
