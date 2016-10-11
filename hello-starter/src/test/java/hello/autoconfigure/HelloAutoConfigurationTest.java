@@ -16,7 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
 
 public class HelloAutoConfigurationTest {
 
@@ -49,6 +50,18 @@ public class HelloAutoConfigurationTest {
 		HelloService bean = this.context.getBean(HelloService.class);
 		bean.sayHello("Works");
 		this.output.expect(containsString("Mine Works*"));
+	}
+
+	@Test
+	public void defaultServiceIsNotAutoConfiguredIfPrefixIsMissing() {
+		load(EmptyConfiguration.class);
+		assertThat(this.context.getBeansOfType(HelloService.class)).isEmpty();
+	}
+
+	@Test
+	public void defaultServiceIsNotAutoConfiguredWithWrongPrefix() {
+		load(EmptyConfiguration.class, "hello.prefix=test");
+		assertThat(this.context.getBeansOfType(HelloService.class)).isEmpty();
 	}
 
 	private void load(Class<?> config, String... environment) {

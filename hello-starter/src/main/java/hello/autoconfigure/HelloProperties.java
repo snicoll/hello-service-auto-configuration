@@ -9,7 +9,7 @@ public class HelloProperties {
 	 * Prefix of the welcome message. A space is added before the prefix and
 	 * the actual message.
 	 */
-	private String prefix = "Hello";
+	private String prefix;
 
 	/**
 	 * Suffix of the welcome message.
