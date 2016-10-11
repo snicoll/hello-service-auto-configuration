@@ -40,7 +40,18 @@ public class HelloAutoConfigurationTest {
 			bean.sayHello("Works");
 			assertThat(this.output.toString()).contains("Mine Works*");
 		});
+	}
 
+	@Test
+	public void defaultServiceIsNotAutoConfiguredIfPrefixIsMissing() {
+		this.contextRunner.run((context) ->
+				assertThat(context).doesNotHaveBean(HelloService.class));
+	}
+
+	@Test
+	public void defaultServiceIsNotAutoConfiguredWithWrongPrefix() {
+		this.contextRunner.withPropertyValues("hello.prefix=test").run((context) ->
+				assertThat(context).doesNotHaveBean(HelloService.class));
 	}
 
 	@Configuration
